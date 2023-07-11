@@ -7,4 +7,5 @@ public class PlayerData
 	public bool boolTest = true;    
 	public string stringTest = "str";
 	public float[] massiveTest = new float[3];
+	public static float gameCount = 0;
 }

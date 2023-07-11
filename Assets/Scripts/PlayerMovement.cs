@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField] private Transform player1;
-    [SerializeField] private Transform player2;
+    [SerializeField] public Transform player1;
+    [SerializeField] public Transform player2;
+    [SerializeField] public Vector3 startPlayer1;
+    [SerializeField] public Vector3 startPlayer2;
     [SerializeField] private float speed1;
     [SerializeField] private float speed2;
     [SerializeField] private Transform finish;
@@ -28,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
 
         speed1 = 0f;
         speed2 = 0f;
+
+        startPlayer1 = player1.position;
+        startPlayer2 = player2.position;
 
         player1_Slider.maxValue = finish.position.y - player1.position.y;
         player2_Slider.maxValue = finish.position.y - player2.position.y;
