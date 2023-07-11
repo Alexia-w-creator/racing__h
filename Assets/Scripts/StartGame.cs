@@ -9,6 +9,8 @@ public class StartGame : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject switchF_R;
     [SerializeField] public bool isRobot;
+    [SerializeField] private Init initSDK;
+
 
     private void Start()
     {
@@ -17,6 +19,8 @@ public class StartGame : MonoBehaviour
     }
     public void playWithFriend()
     {
+        PlayerData.gameCount++;
+
         panel.SetActive(true);
         switchF_R.SetActive(false);
 
@@ -25,6 +29,8 @@ public class StartGame : MonoBehaviour
 
     public void playWithRobot()
     {
+        PlayerData.gameCount++;
+
         panel.SetActive(true);
         switchF_R.SetActive(false);
         isRobot = true;
