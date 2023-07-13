@@ -11,22 +11,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public Transform player2;
     [SerializeField] public Vector3 startPlayer1;
     [SerializeField] public Vector3 startPlayer2;
-    [SerializeField] private float speed1;
-    [SerializeField] private float speed2;
+    [SerializeField] public float speed1;
+    [SerializeField] public float speed2;
     [SerializeField] private Transform finish;
     [SerializeField] private Slider player1_Slider;
     [SerializeField] private Slider player2_Slider;
-    private float stopTouch1;
-    private float stopTouch2;
+    [SerializeField] private GameObject player1_Button;
     [SerializeField] private GameObject player2_Button;
 
-    private bool mode;
 
     [SerializeField] public StartGame game;
 
+    //[SerializeField] private Init initSDK;
+
+
     void Start()
     {
-        StartCoroutine(Timer());
 
         speed1 = 0f;
         speed2 = 0f;
@@ -56,24 +56,41 @@ public class PlayerMovement : MonoBehaviour
             Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, player2.position.y, Camera.main.transform.position.z);
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Move(true);
-        }
 
-        if (!game.isRobot)
+
+        if (!Init.Instance.mobile)
         {
-            if (Input.GetKeyDown(KeyCode.M))
+            player1_Button.SetActive(false);
+            player2_Button.SetActive(false);
+            if (Input.GetKeyDown(KeyCode.Z))
             {
-                Move(false);
+                Move(true);
+            }
+
+            if (!game.isRobot)
+            {
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    Move(false);
+                }
+            }
+            else
+            {
+                StartCoroutine(AISpeed());
             }
         }
         else
         {
-            StartCoroutine(AISpeed());
-
+            player1_Button.SetActive(true);
+            if (!game.isRobot)
+            {
+                player2_Button.SetActive(true);
+            }
+            else
+            {
+                StartCoroutine(AISpeed());
+            }
         }
-
     }
 
 
@@ -82,42 +99,13 @@ public class PlayerMovement : MonoBehaviour
         if (player)
         {
             speed1 += 1f;
-            stopTouch1 = 0f;
         }
         else
         {
             speed2 += 1f;
-            stopTouch2 = 0f;
         }
     }
 
-    IEnumerator Timer()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(0.25f);
-
-            stopTouch1 += 0.25f;
-            stopTouch2 += 0.25f;
-
-            if (stopTouch1 >= 0.5f && speed1 >= 1f)
-            {
-                speed1 -= 1f;
-
-            }
-
-            if (mode)
-            {
-                if (stopTouch2 >= 0.5f && speed2 >= 1f)
-                {
-                    speed2 -= 1f;
-                }
-            }
-
-        }
-
-
-    }
 
 
     IEnumerator AISpeed()
@@ -127,6 +115,8 @@ public class PlayerMovement : MonoBehaviour
         speed2 = 6f;
         yield return new WaitForSeconds(1);
         speed2 = 10f;
+        yield return new WaitForSeconds(1);
+        speed2 = 12f;
     }
 
 }

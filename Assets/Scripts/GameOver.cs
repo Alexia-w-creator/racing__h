@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 
 
@@ -31,14 +30,17 @@ public class GameOver : MonoBehaviour
     void Update()
     {
         //Debug.Log(player1.transform.position.y);
-        if (player1.transform.position.y > finish.position.y)
+        if (player1.transform.position.y > finish.position.y && player1Victory.activeInHierarchy == false)
         {
             EndGame(player1Victory);
-
+            playerMovement_.player1.position = new Vector3(0, 0, 0);
+            playerMovement_.speed1 = 0;
         }
-        else if (player2.transform.position.y > finish.position.y)
+        else if (player2.transform.position.y > finish.position.y && player2Victory.activeInHierarchy == false)
         {
             EndGame(player2Victory);
+            playerMovement_.player1.position = new Vector3(0, 0, 0);
+            playerMovement_.speed2 = 0;
         }
     }
 
@@ -48,22 +50,33 @@ public class GameOver : MonoBehaviour
         panel.SetActive(true);
         Invoke("toMenu", 3f);
 
-        Debug.Log(PlayerData.gameCount);
+        //Debug.Log(PlayerData.gameCount);
 
-        initSDK.ShowInterstitialAd();
+        //initSDK.ShowInterstitialAd();
 
-        if(PlayerData.gameCount == 3)
-        {
-            initSDK.RateGameFunc();
+        //if(PlayerData.gameCount == 3)
+        //{
+        //    initSDK.RateGameFunc();
 
-        }
+        //}
 
 
     }
 
     private void toMenu()
     {
+        Debug.Log(PlayerData.gameCount);
 
-        SceneManager.LoadScene(0);
+
+        if (PlayerData.gameCount == 3)
+        {
+            initSDK.RateGameFunc();
+        }
+        else
+        {
+            initSDK.ShowInterstitialAd();
+        }
+        //SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 } 

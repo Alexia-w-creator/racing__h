@@ -9,7 +9,6 @@ public class StartGame : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject switchF_R;
     [SerializeField] public bool isRobot;
-    [SerializeField] private Init initSDK;
 
 
     private void Start()
@@ -36,10 +35,6 @@ public class StartGame : MonoBehaviour
         isRobot = true;
     }
 
-    public void beck_button()
-    {
-        SceneManager.LoadScene(0);
 
-    }
 
 }

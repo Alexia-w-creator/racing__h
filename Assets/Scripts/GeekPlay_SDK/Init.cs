@@ -2,6 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public enum Platform 
 {
@@ -15,6 +16,16 @@ public class Init : MonoBehaviour
 {
     public bool soundOn = true; //Звук включен?
     public PlayerData playerData;
+
+
+
+    [SerializeField] private TextMeshProUGUI title;
+    [SerializeField] private TextMeshProUGUI description;
+    [SerializeField] private TextMeshProUGUI textVictory1;
+    [SerializeField] private TextMeshProUGUI textVictory2;
+    [SerializeField] private TextMeshProUGUI clicTextRight;
+    [SerializeField] private TextMeshProUGUI clicTextLeft;
+
 
     [Header("Publisher Settings")]
     [Space(50)]
@@ -255,7 +266,7 @@ public class Init : MonoBehaviour
                 	string s = PlayerPrefs.GetString("PlayerData");
                 	playerData = JsonUtility.FromJson<PlayerData>(s);
                 }
-                language = "tr"; //ВЫБРАТЬ ЯЗЫК ДЛЯ ТЕСТОВ. ru/en/tr\
+                language = "en"; //ВЫБРАТЬ ЯЗЫК ДЛЯ ТЕСТОВ. ru/en/tr\
                 Localization();
                 break;
             case Platform.Yandex:
@@ -354,6 +365,70 @@ public class Init : MonoBehaviour
 
     public void Localization()
     {
+        if (!mobile)
+        {
+            if (language == "ru")
+            {
+                title.text = "Скачки";
+                description.text = "Как можно больше жмите Z и M, чтобы добежать до финиша быстрее соперника!";
+                textVictory1.text = "Красный победил";
+                textVictory2.text = "Синий победил";
+                clicTextLeft.text = "Z";
+                clicTextRight.text = "M";
+
+            }
+            else if (language == "en")
+            {
+                title.text = "Horse racing";
+                description.text = "Press Z and M as much as possible to reach the finish line faster than your opponent!";
+                textVictory1.text = "Red won";
+                textVictory2.text = "Blue won";
+                clicTextLeft.text = "Z";
+                clicTextRight.text = "M";
+            }
+            else if (language == "tr")
+            {
+                title.text = "At yarışı";
+                description.text = "Rakibinizden daha hızlı bitiş çizgisine ulaşmak için mümkün olduğunca Z ve M tuşlarına basın!";
+                textVictory1.text = "Kırmızı kazandı";
+                textVictory2.text = "Mavi kazandı";
+                clicTextLeft.text = "Z";
+                clicTextRight.text = "M";
+            }
+        }
+        else
+        {
+            if (language == "ru")
+            {
+                title.text = "Скачки";
+                description.text = "Как можно больше жмите на свою сторону экрана, чтобы добежать до финиша быстрее соперника!";
+                textVictory1.text = "Красный победил";
+                textVictory2.text = "Синий победил";
+                clicTextLeft.text = "Клик";
+                clicTextRight.text = "Клик";
+
+            }
+            else if (language == "en")
+            {
+                title.text = "Horse racing";
+                description.text = "Tap your side of the screen as much as possible to reach the finish line faster than your opponent!";
+                textVictory1.text = "Red won";
+                textVictory2.text = "Blue won";
+                clicTextLeft.text = "Click";
+                clicTextRight.text = "Click";
+
+            }
+            else if (language == "tr")
+            {
+                title.text = "At yarışı";
+                description.text = "Rakibinizden daha hızlı bitiş çizgisine ulaşmak için mümkün olduğunca ekranın yanına tıklayın!";
+                textVictory1.text = "Kırmızı kazandı";
+                textVictory2.text = "Mavi kazandı";
+                clicTextLeft.text = "Klik";
+                clicTextRight.text = "Klik";
+
+            }
+        }
 
     }
 
